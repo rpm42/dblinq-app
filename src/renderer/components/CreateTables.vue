@@ -24,35 +24,36 @@
 
 <script>
 import mysql from 'mysql'
+import { mapState } from 'vuex'
 import tables from '@/data/tables'
+import data from '@/data/data'
+
 // import Promise from Promise
 export default {
   name: 'ConnectPage',
   data () {
     return {
       error: '',
-      showResult: false,
-      access: {
-        host: '127.0.0.1',
-        port: 3306,
-        user: 'dbtest',
-        password: 'dbtest',
-        database: 'dbtest'
-      }
+      showResult: false
     }
   },
+  computed: mapState(['access']),
   methods: {
     async createTables () {
       console.log(tables)
+      console.log(data)
+
+      console.log(await this.doQuery('SHOW TABLES'))
       try {
-        console.log(await this.doQuery(tables.shops))
         console.log(await this.doQuery(tables.products))
-        console.log(await this.doQuery(tables.productsInShops))
+        console.log(await this.doQuery(tables.cart))
+        console.log(await this.doQuery(data.products))
+        console.log(await this.doQuery(data.cart))
         this.error = ''
       } catch (error) {
-        this.error = error
-        this.showResult = true
+        this.error += `\n\n${error}`
       }
+      this.showResult = true
     },
     doQuery (queryStr) {
       return new Promise((resolve, reject) => {
@@ -68,8 +69,8 @@ export default {
             return resolve(results)
           })
         } catch (error) {
-          this.error = error
-          this.showResult = true
+          this.error += `\n\n${error}`
+          // this.showResult = true
         }
       })
     }

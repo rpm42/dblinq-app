@@ -57,11 +57,11 @@ export default {
       error: '',
       showResult: false,
       access: {
-        host: '127.0.0.1',
-        port: 3306,
-        user: 'dbtest',
-        password: 'dbtest',
-        database: 'dbtest'
+        host: this.$store.state.access.host,
+        port: this.$store.state.access.port,
+        user: this.$store.state.access.user,
+        password: this.$store.state.access.password,
+        database: this.$store.state.access.database
       }
     }
   },
@@ -75,6 +75,7 @@ export default {
           this.error = ''
           connection.end()
           console.log(result)
+          this.$store.commit('SET_ACCESS', this.access)
         }
         this.showResult = true
       })

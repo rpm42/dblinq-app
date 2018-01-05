@@ -1,13 +1,17 @@
-shops = """
-CREATE TABLE `shops` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(64) NOT NULL DEFAULT '',
-  `address` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+tables = {}
+
+data = {}
+
+tables.cart = """
+CREATE TABLE `cart` (
+  `product_id` int(11) unsigned DEFAULT NULL,
+  `count` int(11) DEFAULT NULL,
+  KEY `PRODUCT_ID` (`product_id`),
+  CONSTRAINT `PRODUCT_ID` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 """
 
-products = """
+tables.products = """
 CREATE TABLE `products` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
@@ -16,17 +20,20 @@ CREATE TABLE `products` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 """
 
-productsInShops = """
-CREATE TABLE `products-in-shops` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `shop_id` int(11) unsigned NOT NULL,
-  `product_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `shop_id` (`shop_id`),
-  KEY `product_id` (`product_id`),
-  CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  CONSTRAINT `shop_id` FOREIGN KEY (`shop_id`) REFERENCES `shops` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+data.products = """
+  INSERT INTO `products` (`id`, `name`, `price`)
+  VALUES
+    (1, 'Шоколад \"Коммунарка\", 100г', 1.75),
+    (2, 'Хлеб \"Крещенский\", 1шт', 0.85),
+    (3, 'Слойка с яблоком, 1шт', 0.75),
+    (4, 'Мед \"Майский\", 1кг', 18.00),
+    (5, 'Печенье \"Халвичное\", 1кг', 7.50),
+    (6, 'Каша гречневая, 800г', 1.87);
+"""
+data.cart = """
+    5 NULL  0.200
+    2 1 NULL
+    3 2 NULL
 """
 
-console.log JSON.stringify {shops, products, productsInShops}, null, '  '
+console.log JSON.stringify(data, null, '  ')

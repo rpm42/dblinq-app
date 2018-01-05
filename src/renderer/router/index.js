@@ -19,6 +19,16 @@ export default new Router({
       path: '/create-tables',
       name: 'create-tables-page',
       component: require('@/components/CreateTables').default
+    },
+    {
+      path: '/add-product',
+      name: 'add-product-page',
+      component: require('@/components/AddProducts').default
+    },
+    {
+      path: '/cart',
+      name: 'add-to-cart-page',
+      component: require('@/components/AddToCart').default
     }
   ]
 })

@@ -11,9 +11,14 @@
           <v-list-tile-title>Create tables</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
-      <v-list-tile @click="$router.push('/connect')">
+      <v-list-tile @click="$router.push('/add-product')">
         <v-list-tile-content>
-          <v-list-tile-title>LINQ</v-list-tile-title>
+          <v-list-tile-title>Add Product</v-list-tile-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <v-list-tile @click="$router.push('/cart')">
+        <v-list-tile-content>
+          <v-list-tile-title>Add to cart</v-list-tile-title>
         </v-list-tile-content>
       </v-list-tile>
     </v-list>
